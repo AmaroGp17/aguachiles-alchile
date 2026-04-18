@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aguachiles SAMARO 🦐</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --mar: #0096C7;
+  --mar-oscuro: #023E8A;
+  --mar-claro: #90E0EF;
+  --arena: #FFF3CD;
+  --arena-2: #FFE082;
+  --rojo: #E63946;
+  --verde: #2DC653;
+  --blanco: #FAFFFE;
+  --texto: #0D1B2A;
+  --gris: #4A5568;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--blanco);
+  color: var(--texto);
+  overflow-x: hidden;
+}
+
+/* OLAS decorativas SVG */
+.wave-top {
+  width: 100%; overflow: hidden; line-height: 0;
+  transform: rotate(180deg);
+}
+.wave-top svg, .wave-bottom svg { display: block; width: 100%; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 3rem;
+  background: rgba(0,150,199,0.95);
+  backdrop-filter: blur(10px);
+}
+.nav-logo {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.6rem; color: #fff; text-decoration: none;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: rgba(255,255,255,0.9); text-decoration: none;
+  font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--arena-2); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #023E8A 0%, #0096C7 45%, #48CAE4 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 7rem 2rem 4rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  top: -100px; left: -120px;
+}
+.hero::after {
+  content: ''; position: absolute;
+  width: 350px; height: 350px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  bottom: 40px; right: -80px;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--arena-2); color: var(--mar-oscuro);
+  font-weight: 800; font-size: 0.8rem; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 0.4rem 1.2rem;
+  border-radius: 2rem; margin-bottom: 1.5rem;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.hero h1 {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  color: #fff; line-height: 1;
+  text-shadow: 3px 4px 0 rgba(0,0,0,0.25);
+  margin-bottom: 0.5rem;
+}
+.hero h1 span { color: var(--arena-2); }
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: rgba(255,255,255,0.85); margin-bottom: 2rem;
+  font-weight: 600; max-width: 560px;
+}
+.hero-emojis { font-size: 2.5rem; letter-spacing: 0.3rem; margin-bottom: 2.5rem; animation: wiggle 3s infinite; }
+@keyframes wiggle {
+  0%,100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.btn-sol {
+  background: var(--arena-2); color: var(--mar-oscuro);
+  padding: 0.9rem 2.4rem; border: none; border-radius: 3rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem;
+  letter-spacing: 0.05em; cursor: pointer; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+.btn-sol:hover { transform: translateY(-3px); box-shadow: 0 7px 0 rgba(0,0,0,0.2); }
+.btn-mar {
+  background: transparent; color: #fff;
+  padding: 0.9rem 2.4rem; border: 2.5px solid rgba(255,255,255,0.6);
+  border-radius: 3rem; font-family: 'Nunito', sans-serif; font-weight: 800;
+  font-size: 0.95rem; cursor: pointer; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.btn-mar:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-2px); }
+
+/* OLA separadora */
+.ola {
+  width: 100%; overflow: hidden; line-height: 0; display: block;
+  margin-top: -2px;
+}
+
+/* STATS BANNER */
+.stats-bar {
+  background: var(--arena); padding: 2rem 4rem;
+  display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 2.2rem; color: var(--mar-oscuro); display: block;
+}
+.stat-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gris); }
+
+/* PRODUCTOS */
+#productos { background: var(--blanco); padding: 5rem 3rem; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-tag {
+  display: inline-block; background: rgba(0,150,199,0.12); color: var(--mar-oscuro);
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 1rem; border-radius: 2rem; margin-bottom: 0.75rem;
+}
+.section-h2 {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: clamp(2rem, 5vw, 3.2rem); color: var(--mar-oscuro);
+  line-height: 1.1;
+}
+.products-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.8rem; max-width: 1100px; margin: 0 auto;
+}
+.product-card {
+  border-radius: 1.5rem; overflow: hidden;
+  border: 3px solid transparent;
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+.product-card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 16px 40px rgba(0,150,199,0.2); }
+.pc-camar { background: linear-gradient(135deg, #E0F7FA, #B2EBF2); border-color: #80DEEA; }
+.pc-pulp  { background: linear-gradient(135deg, #FFF9C4, #FFF176); border-color: #FDD835; }
+.pc-atun  { background: linear-gradient(135deg, #FCE4EC, #F8BBD0); border-color: #F48FB1; }
+.pc-mix   { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-color: #81C784; }
+.prod-emoji { font-size: 5rem; text-align: center; padding: 1.5rem 0 0.5rem; display: block; }
+.prod-body { padding: 1rem 1.5rem 1.5rem; }
+.spicy-bar { display: flex; gap: 4px; margin-bottom: 0.6rem; }
+.spicy-bar span { width: 22px; height: 8px; border-radius: 4px; background: rgba(0,0,0,0.1); }
+.spicy-bar span.on { background: var(--rojo); }
+.prod-name {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.4rem; color: var(--mar-oscuro); margin-bottom: 0.4rem;
+}
+.prod-desc { font-size: 0.84rem; color: var(--gris); line-height: 1.6; margin-bottom: 0.9rem; }
+.prod-footer { display: flex; justify-content: space-between; align-items: center; }
+.prod-price { font-weight: 800; font-size: 1.15rem; color: var(--rojo); }
+.prod-badge {
+  background: var(--mar); color: #fff;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+  padding: 0.25rem 0.75rem; border-radius: 2rem;
+}
+
+/* POR QUÉ */
+#nosotros {
+  background: linear-gradient(135deg, #023E8A, #0096C7);
+  padding: 5rem 3rem; color: #fff;
+}
+#nosotros .section-tag { background: rgba(255,255,255,0.15); color: var(--arena-2); }
+#nosotros .section-h2 { color: #fff; }
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem; max-width: 1100px; margin: 3rem auto 0;
+}
+.feature-card {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 1.2rem; padding: 1.8rem 1.5rem; text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.feature-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+.feat-icon { font-size: 2.5rem; margin-bottom: 0.8rem; display: block; }
+.feat-title { font-family: 'Cabin Sketch', cursive; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.feat-text { font-size: 0.84rem; color: rgba(255,255,255,0.75); line-height: 1.65; }
+
+/* PEDIDOS */
+#pedidos { background: var(--arena); padding: 5rem 3rem; }
+.order-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; max-width: 1000px; margin: 0 auto; align-items: start; }
+.order-deco { text-align: center; }
+.order-deco-emoji { font-size: 6rem; display: block; animation: float 4s ease-in-out infinite; }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.order-deco h3 {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.8rem; color: var(--mar-oscuro); margin: 1rem 0 0.5rem;
+}
+.order-deco p { font-size: 0.9rem; color: var(--gris); line-height: 1.7; margin-bottom: 1.5rem; }
+.contact-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #fff; border-radius: 2rem;
+  padding: 0.5rem 1.2rem; margin: 0.3rem; font-size: 0.85rem; font-weight: 700;
+  color: var(--mar-oscuro); box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* FORM */
+.order-form { display: flex; flex-direction: column; gap: 0.9rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mar-oscuro); }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 0.8rem 1rem; border: 2.5px solid rgba(0,60,130,0.15);
+  border-radius: 0.75rem; background: #fff;
+  font-family: 'Nunito', sans-serif; font-size: 0.92rem; color: var(--texto);
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--mar);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.btn-submit {
+  background: #25D366; color: #fff;
+  padding: 1rem; border: none; border-radius: 3rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+  letter-spacing: 0.05em; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2); margin-top: 0.5rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.btn-submit:hover { background: #1ebe5c; transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.2); }
+.form-success {
+  display: none; background: rgba(37,211,102,0.12);
+  border: 2px solid #25D366; border-radius: 1rem;
+  padding: 1.5rem; text-align: center; font-weight: 700; color: #0a6630; font-size: 1rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--mar-oscuro); color: #fff;
+  padding: 2.5rem 4rem; text-align: center;
+}
+.footer-logo {
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 1.8rem; margin-bottom: 0.5rem; display: block;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+.footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+/* MEDIDOR DE PICANTE */
+.picante-meter { background: #fff; border-radius: 1.2rem; padding: 1.2rem 1.4rem; border: 2.5px solid rgba(0,60,130,0.12); }
+.picante-labels { display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--gris); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.picante-track { position: relative; margin-bottom: 0.8rem; }
+.picante-fill {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  height: 10px; border-radius: 5px; width: 0%;
+  background: linear-gradient(90deg, #2DC653, #FFE082, #E63946, #7B0000);
+  transition: width 0.3s; pointer-events: none; z-index: 0;
+}
+.picante-track input[type=range] {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 10px; border-radius: 5px; background: rgba(0,0,0,0.08);
+  outline: none; cursor: pointer; position: relative; z-index: 1; background: transparent;
+}
+.picante-track input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--rojo); cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: border-color 0.2s, transform 0.15s;
+}
+.picante-track input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.picante-display { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.6rem; }
+.picante-emoji { font-size: 1.8rem; transition: all 0.3s; }
+.picante-label { font-weight: 800; font-size: 0.95rem; color: var(--texto); transition: color 0.3s; }
+.picante-chiles { display: flex; gap: 4px; }
+.chile-dot { font-size: 1.2rem; opacity: 0.2; transition: opacity 0.2s, transform 0.2s; }
+.chile-dot.on { opacity: 1; transform: scale(1.15); }
+
+/* ===== ARMA TU AGUACHILE ===== */
+#arma { background: var(--blanco); padding: 5rem 3rem; }
+.builder-wrap { max-width: 900px; margin: 0 auto; }
+.builder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+.builder-left { display: flex; flex-direction: column; gap: 1.8rem; }
+.builder-block-title {
+  font-family: 'Cabin Sketch', cursive; font-size: 1.1rem; color: var(--mar-oscuro);
+  margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.4rem;
+}
+.opts-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.opt-btn {
+  padding: 0.5rem 1.1rem; border-radius: 2rem; border: 2.5px solid rgba(0,60,130,0.2);
+  background: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem;
+  color: var(--texto); cursor: pointer; transition: all 0.18s; user-select: none;
+}
+.opt-btn:hover { border-color: var(--mar); color: var(--mar); }
+.opt-btn.selected { background: var(--mar); border-color: var(--mar); color: #fff; transform: scale(1.05); }
+.opt-btn.selected-verde { background: #2DC653; border-color: #2DC653; color: #fff; transform: scale(1.05); }
+.opt-btn.selected-negro { background: #1a1a1a; border-color: #1a1a1a; color: #fff; transform: scale(1.05); }
+.opt-btn.selected-rojo  { background: var(--rojo); border-color: var(--rojo); color: #fff; transform: scale(1.05); }
+.toggle-btn {
+  padding: 0.5rem 1.3rem; border-radius: 2rem; border: 2.5px solid rgba(0,60,130,0.2);
+  background: #fff; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem;
+  color: var(--gris); cursor: pointer; transition: all 0.18s;
+}
+.toggle-btn.si { background: #E8F8EE; border-color: #2DC653; color: #1a7a35; }
+.toggle-btn.no { background: #FDECEA; border-color: var(--rojo); color: #a0182a; }
+
+/* Preview bowl */
+.builder-right { position: sticky; top: 90px; }
+.bowl-card {
+  background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+  border: 3px solid #80DEEA; border-radius: 1.8rem;
+  padding: 2rem 1.8rem; text-align: center;
+}
+.bowl-emoji-big { font-size: 5rem; display: block; margin-bottom: 0.5rem; transition: all 0.3s; }
+.bowl-title { font-family: 'Cabin Sketch', cursive; font-size: 1.5rem; color: var(--mar-oscuro); margin-bottom: 1rem; }
+.bowl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; min-height: 2rem; margin-bottom: 1.2rem; }
+.bowl-tag {
+  padding: 0.25rem 0.8rem; border-radius: 2rem; font-size: 0.78rem; font-weight: 700;
+  background: rgba(0,150,199,0.15); color: var(--mar-oscuro);
+}
+.bowl-tag.t-negro { background: rgba(26,26,26,0.12); color: #1a1a1a; }
+.bowl-tag.t-rojo  { background: rgba(230,57,70,0.15); color: #a0182a; }
+.bowl-tag.t-verde { background: rgba(45,198,83,0.18); color: #1a7a35; }
+.bowl-price-line { font-size: 1.3rem; font-weight: 800; color: var(--rojo); margin-bottom: 1.2rem; }
+.btn-add-order {
+  background: #25D366; color: #fff; border: none; border-radius: 2rem;
+  padding: 0.85rem 2rem; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.92rem;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2); width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.btn-add-order:hover { background: #1ebe5c; transform: translateY(-2px); }
+.bowl-empty { color: var(--gris); font-size: 0.88rem; font-style: italic; }
+
+/* ===== PAQUETES ===== */
+#paquetes {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+  padding: 5rem 3rem;
+}
+#paquetes .section-tag { background: rgba(255,160,0,0.15); color: #7a4f00; }
+#paquetes .section-h2 { color: var(--mar-oscuro); }
+.paquetes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.6rem; max-width: 1100px; margin: 3rem auto 0; }
+.paq-card {
+  background: #fff; border-radius: 1.5rem; overflow: hidden;
+  border: 3px solid rgba(0,60,130,0.12);
+  transition: transform 0.25s, box-shadow 0.25s; position: relative;
+}
+.paq-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,100,180,0.15); }
+.paq-card.destacado { border-color: var(--mar); }
+.paq-badge-top {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--mar); color: #fff;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+  padding: 0.25rem 0.75rem; border-radius: 2rem;
+}
+.paq-header { padding: 1.8rem 1.5rem 1rem; text-align: center; }
+.paq-emoji { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
+.paq-name { font-family: 'Cabin Sketch', cursive; font-size: 1.5rem; color: var(--mar-oscuro); margin-bottom: 0.3rem; }
+.paq-personas { font-size: 0.8rem; font-weight: 700; color: var(--gris); text-transform: uppercase; letter-spacing: 0.1em; }
+.paq-price { font-size: 2rem; font-weight: 800; color: var(--rojo); text-align: center; padding: 0.5rem 1.5rem; }
+.paq-price span { font-size: 0.9rem; font-weight: 600; color: var(--gris); }
+.paq-includes { padding: 0 1.5rem 1.5rem; }
+.paq-includes p { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gris); margin-bottom: 0.6rem; }
+.paq-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; padding: 0.3rem 0; border-bottom: 1px dashed rgba(0,60,130,0.1); }
+.paq-item:last-child { border: none; }
+.check { color: #2DC653; font-weight: 800; }
+.btn-paq {
+  display: block; margin: 0 1.5rem 1.5rem; background: #25D366; color: #fff;
+  text-align: center; border: none; border-radius: 2rem; padding: 0.8rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem;
+  cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+.btn-paq:hover { background: #1ebe5c; transform: translateY(-2px); }
+.btn-paq.gold { background: #F59E0B; box-shadow: 0 3px 0 #92600A; }
+.btn-paq.gold:hover { background: #D97706; }
+
+/* WhatsApp floating button */
+.wa-float {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+  background: #25D366; color: #fff; border: none; border-radius: 50%;
+  width: 60px; height: 60px; font-size: 1.8rem; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: pulsewa 2s infinite;
+}
+.wa-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.7); }
+@keyframes pulsewa {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 4px 32px rgba(37,211,102,0.8); }
+}
+
+/* ===== CARRITO ===== */
+.cart-btn-nav {
+  position: relative; background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.5);
+  color: #fff; border-radius: 2rem; padding: 0.45rem 1.1rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.88rem;
+  cursor: pointer; display: flex; align-items: center; gap: 0.45rem;
+  transition: background 0.2s;
+}
+.cart-btn-nav:hover { background: rgba(255,255,255,0.3); }
+.cart-badge {
+  background: var(--rojo); color: #fff; border-radius: 50%;
+  width: 20px; height: 20px; font-size: 0.7rem; font-weight: 800;
+  display: none; align-items: center; justify-content: center;
+  position: absolute; top: -7px; right: -7px;
+}
+.cart-badge.visible { display: flex; }
+
+/* Overlay */
+.cart-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  z-index: 900; backdrop-filter: blur(3px);
+}
+.cart-overlay.open { display: block; }
+
+/* Drawer */
+.cart-drawer {
+  position: fixed; top: 0; right: -480px; width: 100%; max-width: 460px;
+  height: 100vh; background: var(--blanco); z-index: 901;
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+.cart-drawer.open { right: 0; }
+
+.cart-drawer-header {
+  background: linear-gradient(135deg, #023E8A, #0096C7);
+  padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.cart-drawer-header h2 {
+  font-family: 'Cabin Sketch', cursive; font-size: 1.4rem; color: #fff;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.cart-close {
+  background: rgba(255,255,255,0.2); border: none; color: #fff;
+  width: 36px; height: 36px; border-radius: 50%; font-size: 1.1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.cart-close:hover { background: rgba(255,255,255,0.35); }
+
+/* Pasos del carrito */
+.cart-steps {
+  display: flex; background: #f0f4f8; border-bottom: 2px solid rgba(0,60,130,0.08);
+  flex-shrink: 0;
+}
+.cart-step {
+  flex: 1; padding: 0.7rem; text-align: center; font-size: 0.75rem;
+  font-weight: 800; color: var(--gris); letter-spacing: 0.06em; text-transform: uppercase;
+  border-bottom: 3px solid transparent; transition: all 0.2s;
+}
+.cart-step.active { color: var(--mar-oscuro); border-color: var(--mar); background: #fff; }
+.cart-step.done { color: #2DC653; border-color: #2DC653; }
+
+/* Contenido scroll */
+.cart-body { flex: 1; overflow-y: auto; padding: 1.2rem 1.5rem; }
+
+/* Items del carrito */
+.cart-empty {
+  text-align: center; padding: 3rem 1rem; color: var(--gris);
+}
+.cart-empty-emoji { font-size: 4rem; display: block; margin-bottom: 1rem; }
+.cart-empty p { font-size: 0.9rem; font-weight: 600; }
+
+.cart-item {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: #fff; border: 2px solid rgba(0,60,130,0.1);
+  border-radius: 1rem; padding: 0.8rem 1rem; margin-bottom: 0.7rem;
+  transition: box-shadow 0.2s;
+}
+.cart-item:hover { box-shadow: 0 4px 16px rgba(0,100,180,0.1); }
+.cart-item-emoji { font-size: 2rem; flex-shrink: 0; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-weight: 800; font-size: 0.9rem; color: var(--mar-oscuro); }
+.cart-item-detail { font-size: 0.75rem; color: var(--gris); margin-top: 0.15rem; }
+.cart-item-price { font-weight: 800; color: var(--rojo); font-size: 0.95rem; flex-shrink: 0; }
+.cart-item-remove {
+  background: none; border: none; color: #ccc; font-size: 1.1rem;
+  cursor: pointer; padding: 0.2rem; border-radius: 50%;
+  transition: color 0.2s, background 0.2s; flex-shrink: 0;
+}
+.cart-item-remove:hover { color: var(--rojo); background: #fdecea; }
+
+/* Qty control dentro del carrito */
+.cart-item-qty {
+  display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem;
+}
+.qty-btn {
+  width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--mar);
+  background: #fff; color: var(--mar); font-size: 0.9rem; font-weight: 800;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.qty-btn:hover { background: var(--mar); color: #fff; }
+.qty-val { font-weight: 800; font-size: 0.9rem; min-width: 1.2rem; text-align: center; }
+
+/* Total bar */
+.cart-total-bar {
+  background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+  border-radius: 1rem; padding: 0.9rem 1.2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 0.5rem; border: 2px solid #80DEEA;
+}
+.cart-total-label { font-weight: 800; color: var(--mar-oscuro); font-size: 0.88rem; }
+.cart-total-val { font-family: 'Cabin Sketch', cursive; font-size: 1.6rem; color: var(--rojo); }
+
+/* Footer drawer */
+.cart-drawer-footer { padding: 1rem 1.5rem; border-top: 2px solid rgba(0,60,130,0.08); flex-shrink: 0; }
+.btn-cart-next {
+  width: 100%; background: var(--mar-oscuro); color: #fff; border: none;
+  border-radius: 2rem; padding: 0.9rem; font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 0.95rem; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.btn-cart-next:hover { background: var(--mar); transform: translateY(-2px); }
+.btn-cart-next:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+.btn-cart-wa {
+  width: 100%; background: #25D366; color: #fff; border: none;
+  border-radius: 2rem; padding: 0.9rem; font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 0.95rem; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.btn-cart-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+/* Formulario del carrito */
+.cart-form { display: flex; flex-direction: column; gap: 0.8rem; }
+.cart-form .form-group label { color: var(--mar-oscuro); }
+.cart-form .form-group input,
+.cart-form .form-group textarea {
+  background: #fff; border-color: rgba(0,60,130,0.15);
+}
+.cart-resumen {
+  background: linear-gradient(135deg,#E0F7FA,#B2EBF2);
+  border: 2px solid #80DEEA; border-radius: 1rem; padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+.cart-resumen-title { font-weight: 800; font-size: 0.8rem; color: var(--mar-oscuro); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.cart-resumen-item { font-size: 0.82rem; color: var(--gris); padding: 0.2rem 0; border-bottom: 1px dashed rgba(0,60,130,0.1); }
+.cart-resumen-item:last-child { border: none; }
+.cart-success {
+  text-align: center; padding: 2rem 1rem;
+}
+.cart-success-emoji { font-size: 4rem; display: block; margin-bottom: 1rem; animation: bounce 1s infinite; }
+.cart-success h3 { font-family: 'Cabin Sketch', cursive; font-size: 1.5rem; color: var(--mar-oscuro); margin-bottom: 0.5rem; }
+.cart-success p { font-size: 0.88rem; color: var(--gris); line-height: 1.6; }
+
+/* Btn agregar en productos y paquetes */
+.btn-agregar {
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  width: 100%; margin-top: 0.7rem; padding: 0.6rem 1rem;
+  background: var(--mar-oscuro); color: #fff; border: none; border-radius: 2rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.82rem;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+}
+.btn-agregar:hover { background: var(--mar); transform: translateY(-2px); }
+.btn-agregar-paq {
+  display: block; margin: 0 1.5rem 0.6rem; background: var(--mar-oscuro); color: #fff;
+  text-align: center; border: none; border-radius: 2rem; padding: 0.65rem;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.85rem;
+  cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.18); width: calc(100% - 3rem);
+}
+.btn-agregar-paq:hover { background: var(--mar); transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+  #arma, #paquetes { padding: 3.5rem 1.2rem; }
+  .builder-grid { grid-template-columns: 1fr; }
+  .builder-right { position: static; }
+  .cart-drawer { max-width: 100%; }
+}
+
+/* ===== ANIMACIONES ENTRADA ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero > * { animation: fadeUp 0.7s both; }
+.hero-badge  { animation-delay: 0.05s; }
+.hero h1     { animation-delay: 0.2s; }
+.hero-sub    { animation-delay: 0.35s; }
+.hero-emojis { animation-delay: 0.45s; }
+.hero-btns   { animation-delay: 0.55s; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 0.9rem 1.2rem; }
+  .nav-links { display: none; }
+  section, #productos, #nosotros, #pedidos { padding: 3.5rem 1.2rem; }
+  .stats-bar { padding: 1.5rem 1rem; gap: 2rem; }
+  .order-layout { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 2rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<button class="wa-float" onclick="abrirWA('Hola! Me interesa hacer un pedido de Aguachiles Amchis 🦐')" title="Escríbenos por WhatsApp">
+  💬
+</button>
+
+<nav>
+  <a href="#" class="nav-logo">🦐 Amchis</a>
+  <ul class="nav-links">
+    <li><a href="#productos">Menú</a></li>
+    <li><a href="#arma">Arma el tuyo</a></li>
+    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+  </ul>
+  <button class="cart-btn-nav" onclick="abrirCarrito()">
+    🛒 Carrito
+    <span class="cart-badge" id="cart-badge">0</span>
+  </button>
+</nav>
+
+<!-- OVERLAY -->
+<div class="cart-overlay" id="cart-overlay" onclick="cerrarCarrito()"></div>
+
+<!-- DRAWER DEL CARRITO -->
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2>🛒 Tu pedido</h2>
+    <button class="cart-close" onclick="cerrarCarrito()">✕</button>
+  </div>
+  <div class="cart-steps">
+    <div class="cart-step active" id="step-tab-1">1 · Carrito</div>
+    <div class="cart-step" id="step-tab-2">2 · Tus datos</div>
+    <div class="cart-step" id="step-tab-3">3 · ¡Listo!</div>
+  </div>
+  <div class="cart-body" id="cart-step-1">
+    <div id="cart-items-list"></div>
+    <div id="cart-total-wrap" style="display:none;">
+      <div class="cart-total-bar">
+        <span class="cart-total-label">Total estimado</span>
+        <span class="cart-total-val" id="cart-total-val">$0</span>
+      </div>
+    </div>
+  </div>
+  <div class="cart-body" id="cart-step-2" style="display:none;">
+    <div class="cart-resumen" id="cart-resumen-mini"></div>
+    <div class="cart-form">
+      <div class="form-group">
+        <label>Tu nombre completo</label>
+        <input type="text" id="cart-nombre" placeholder="¿Cómo te llamamos?">
+      </div>
+      <div class="form-group">
+        <label>Tu WhatsApp</label>
+        <input type="tel" id="cart-telefono" placeholder="442 000 0000">
+      </div>
+      <div class="form-group">
+        <label>¿Dónde te lo llevamos?</label>
+        <textarea id="cart-direccion" placeholder="Calle, número, colonia, referencias…" style="min-height:80px;resize:vertical;padding:0.8rem 1rem;border:2.5px solid rgba(0,60,130,0.15);border-radius:0.75rem;background:#fff;font-family:'Nunito',sans-serif;font-size:0.92rem;width:100%;box-sizing:border-box;"></textarea>
+      </div>
+      <div class="form-group">
+        <label>¿Hora de entrega? (opcional)</label>
+        <input type="text" id="cart-hora" placeholder="Ej: mañana a las 2pm">
+      </div>
+      <div class="form-group">
+        <label>¿Alguna nota extra? (opcional)</label>
+        <input type="text" id="cart-nota" placeholder="Alergias, preferencias…">
+      </div>
+    </div>
+  </div>
+  <div class="cart-body" id="cart-step-3" style="display:none;">
+    <div class="cart-success">
+      <span class="cart-success-emoji">🎉</span>
+      <h3>¡Pedido enviado!</h3>
+      <p>Se abrió WhatsApp con todos los detalles. Solo confirma el mensaje y te atendemos al momento. ¡Gracias! 🦐</p>
+    </div>
+  </div>
+  <div class="cart-drawer-footer" id="cart-footer">
+    <button class="btn-cart-next" id="btn-paso-2" onclick="irPaso2()">Ver resumen y datos →</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🌊 Sabor costero en Querétaro 🌊</span>
+  <h1>Aguachiles<br><span>SAMARO</span></h1>
+  <p class="hero-sub">Frescos, picantes y llenos de sabor marino. Hechos con amor para que cada mordida te lleve a la playa.</p>
+  <div class="hero-emojis">🦐🌶️🍋🌊</div>
+  <div class="hero-btns">
+    <a href="#productos" class="btn-sol">Ver el menú 🍽️</a>
+    <a href="#pedidos" class="btn-mar">Hacer un pedido</a>
+  </div>
+</div>
+
+<!-- OLA -->
+<div class="ola">
+  <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C360,90 1080,0 1440,50 L1440,0 L0,0 Z" fill="#48CAE4"/>
+  </svg>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">+100</span><span class="stat-label">Clientes felices</span></div>
+  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Natural y fresco</span></div>
+  <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Sabores únicos</span></div>
+  <div class="stat-item"><span class="stat-num">24h</span><span class="stat-label">Entrega en Qro</span></div>
+</div>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="section-header">
+    <span class="section-tag">Nuestro menú</span>
+    <h2 class="section-h2">Elige tu sabor favorito 🌶️</h2>
+  </div>
+  <div class="products-grid">
+    <div class="product-card pc-camar">
+      <span class="prod-emoji">🦐</span>
+      <div class="prod-body">
+        <div class="spicy-bar"><span class="on"></span><span class="on"></span><span></span></div>
+        <p class="prod-name">Camarón Negro</p>
+        <p class="prod-desc">El clásico de Sinaloa. Camarones frescos bañados en salsa negra de soya con limón y chile. Intenso y adictivo.</p>
+        <div class="prod-footer"><span class="prod-price">$65 / porción</span><span class="prod-badge">⭐ Favorito</span></div>
+        <button class="btn-agregar" onclick="agregarAlCarrito('Camarón Negro',65,'🦐','Negro')">🛒 Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="product-card" style="background:linear-gradient(135deg,#FDECEA,#F8BBD0);border:3px solid #F48FB1;">
+      <span class="prod-emoji">🦐</span>
+      <div class="prod-body">
+        <div class="spicy-bar"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+        <p class="prod-name">Camarón Rojo</p>
+        <p class="prod-desc">Salsa roja de chile de árbol y morita. Picante con carácter, color vivo y sabor que se queda.</p>
+        <div class="prod-footer"><span class="prod-price">$65 / porción</span><span class="prod-badge">🔥 Hot</span></div>
+        <button class="btn-agregar" onclick="agregarAlCarrito('Camarón Rojo',65,'🦐','Rojo')">🛒 Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="product-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:3px solid #81C784;">
+      <span class="prod-emoji">🦐</span>
+      <div class="prod-body">
+        <div class="spicy-bar"><span class="on"></span><span></span><span></span></div>
+        <p class="prod-name">Camarón Verde</p>
+        <p class="prod-desc">Salsa verde con tomatillo, cilantro y chile serrano. Fresco, ácido y suavecito. Ideal para los que no le entran al picante.</p>
+        <div class="prod-footer"><span class="prod-price">$65 / porción</span><span class="prod-badge">🌿 Suave</span></div>
+        <button class="btn-agregar" onclick="agregarAlCarrito('Camarón Verde',65,'🦐','Verde')">🛒 Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="product-card" style="background:linear-gradient(135deg,#FFF9C4,#FFF176);border:3px solid #FDD835;">
+      <span class="prod-emoji">🦐</span>
+      <div class="prod-body">
+        <div class="spicy-bar"><span class="on"></span><span class="on"></span><span></span></div>
+        <p class="prod-name">Camarón Amarillo</p>
+        <p class="prod-desc">Habanero amarillo con mango y cúrcuma. Dulce, picante y exótico. La sorpresa del menú.</p>
+        <div class="prod-footer"><span class="prod-price">$70 / porción</span><span class="prod-badge">✨ Especial</span></div>
+        <button class="btn-agregar" onclick="agregarAlCarrito('Camarón Amarillo',70,'🦐','Amarillo')">🛒 Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARMA TU AGUACHILE -->
+<section id="arma">
+  <div class="section-header">
+    <span class="section-tag">Personaliza tu pedido</span>
+    <h2 class="section-h2">¡Arma tu aguachile! 🎨</h2>
+  </div>
+  <div class="builder-wrap">
+    <div class="builder-grid">
+      <div class="builder-left">
+
+        <!-- Camarón fijo -->
+        <div style="background:linear-gradient(135deg,#E0F7FA,#B2EBF2);border-radius:1rem;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-size:2.2rem;">🦐</span>
+          <div>
+            <p style="font-weight:800;color:var(--mar-oscuro);font-size:1rem;">Camarón fresco</p>
+            <p style="font-size:0.8rem;color:var(--gris);">100% camarón — nuestro único y delicioso ingrediente</p>
+          </div>
+          <span style="margin-left:auto;background:var(--mar);color:#fff;font-size:0.72rem;font-weight:800;padding:0.2rem 0.7rem;border-radius:2rem;">✓ Incluido</span>
+        </div>
+
+        <!-- Tipo de salsa -->
+        <div>
+          <p class="builder-block-title">🌶️ ¿Qué tipo de aguachile?</p>
+          <div class="opts-row" id="tipo-opts">
+            <button class="opt-btn" onclick="selTipo(this,'Negro','⚫','negro')">⚫ Negro</button>
+            <button class="opt-btn" onclick="selTipo(this,'Rojo','🔴','rojo')">🔴 Rojo</button>
+            <button class="opt-btn" onclick="selTipo(this,'Verde','🟢','verde')">🟢 Verde</button>
+            <button class="opt-btn" onclick="selTipo(this,'Amarillo','🟡','mar')">🟡 Amarillo</button>
+          </div>
+        </div>
+
+        <!-- Medidor de picante -->
+        <div>
+          <p class="builder-block-title">🌡️ Nivel de picante</p>
+          <div class="picante-meter">
+            <div class="picante-labels">
+              <span>Sin picante</span><span>Medio</span><span>¡Muerte! 💀</span>
+            </div>
+            <div class="picante-track">
+              <div class="picante-fill" id="picante-fill"></div>
+              <input type="range" min="0" max="4" value="0" id="picante-slider" oninput="updatePicante(this.value)">
+            </div>
+            <div class="picante-display" id="picante-display">
+              <span class="picante-emoji" id="picante-emoji">😊</span>
+              <span class="picante-label" id="picante-label">Sin picante — tranquilo</span>
+            </div>
+            <div class="picante-chiles" id="picante-chiles">
+              <span class="chile-dot off">🌶️</span><span class="chile-dot off">🌶️</span><span class="chile-dot off">🌶️</span><span class="chile-dot off">🌶️</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extras -->
+        <div>
+          <p class="builder-block-title">🥗 Extras (elige los que quieras)</p>
+          <div class="opts-row">
+            <button class="toggle-btn" onclick="toggleExtra(this,'🧅 Cebolla')">🧅 Cebolla</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🥑 Aguacate')">🥑 Aguacate</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🥒 Pepino')">🥒 Pepino</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🍋 Limón extra')">🍋 Limón extra</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🧄 Ajo')">🧄 Ajo</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🌿 Cilantro')">🌿 Cilantro</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🍟 Tostadas')">🍟 Tostadas</button>
+            <button class="toggle-btn" onclick="toggleExtra(this,'🧀 Queso')">🧀 Queso</button>
+          </div>
+        </div>
+
+        <!-- Cantidad -->
+        <div>
+          <p class="builder-block-title">📦 ¿Cuántas porciones?</p>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <button onclick="cambiarCant(-1)" style="width:38px;height:38px;border-radius:50%;border:2.5px solid var(--mar);background:#fff;font-size:1.2rem;font-weight:800;color:var(--mar);cursor:pointer;">−</button>
+            <span id="cant-num" style="font-size:1.5rem;font-weight:800;min-width:2rem;text-align:center;">1</span>
+            <button onclick="cambiarCant(1)" style="width:38px;height:38px;border-radius:50%;border:2.5px solid var(--mar);background:var(--mar);font-size:1.2rem;font-weight:800;color:#fff;cursor:pointer;">+</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="builder-right">
+        <div class="bowl-card" id="bowl-card">
+          <span class="bowl-emoji-big" id="bowl-emoji">🍽️</span>
+          <p class="bowl-title" id="bowl-name">Tu aguachile</p>
+          <div class="bowl-tags" id="bowl-tags">
+            <span class="bowl-empty">Elige tus ingredientes ☝️</span>
+          </div>
+          <p class="bowl-price-line" id="bowl-price">$—</p>
+          <button class="btn-add-order" onclick="irAPedido()">
+            <span>🛒</span> Agregar al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OLA 2 -->
+<div class="ola" style="background:var(--blanco);">
+  <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,35 C480,70 960,0 1440,40 L1440,70 L0,70 Z" fill="#FFF8E1"/>
+  </svg>
+</div>
+
+<!-- PAQUETES -->
+<section id="paquetes">
+  <div class="section-header">
+    <span class="section-tag">Para grupos y eventos</span>
+    <h2 class="section-h2">Paquetes Especiales 🎉</h2>
+  </div>
+  <div class="paquetes-grid">
+
+    <div class="paq-card">
+      <div class="paq-header">
+        <span class="paq-emoji">🌊</span>
+        <p class="paq-name">Paquete Playa</p>
+        <p class="paq-personas">Para 2 personas</p>
+      </div>
+      <p class="paq-price">$150 <span>/ paquete</span></p>
+      <div class="paq-includes">
+        <p>Incluye:</p>
+        <div class="paq-item"><span class="check">✓</span> 2 porciones de aguachile de camarón</div>
+        <div class="paq-item"><span class="check">✓</span> 1 preparo de miche 🍺</div>
+        <div class="paq-item"><span class="check">✓</span> Tostadas, limones y salsas</div>
+        <div class="paq-item"><span class="check">✓</span> Bolsa de presentación</div>
+      </div>
+      <button class="btn-paq" onclick="irAPedidoPaquete('Paquete Playa — $150 (2 personas + 1 miche)')">📲 Pedir directo</button>
+      <button class="btn-agregar-paq" onclick="agregarAlCarrito('Paquete Playa',150,'🌊','2 personas + 1 miche')">🛒 Agregar al carrito</button>
+    </div>
+
+    <div class="paq-card destacado">
+      <span class="paq-badge-top">⭐ Más pedido</span>
+      <div class="paq-header">
+        <span class="paq-emoji">🦐</span>
+        <p class="paq-name">Paquete Fiesta</p>
+        <p class="paq-personas">Para 4–5 personas</p>
+      </div>
+      <p class="paq-price">$350 <span>/ paquete</span></p>
+      <div class="paq-includes">
+        <p>Incluye:</p>
+        <div class="paq-item"><span class="check">✓</span> 5 porciones de camarón (a elegir estilo)</div>
+        <div class="paq-item"><span class="check">✓</span> 2 preparos de miche 🍺🍺</div>
+        <div class="paq-item"><span class="check">✓</span> Tostadas, limones y salsas</div>
+        <div class="paq-item"><span class="check">✓</span> Pepino, cebolla y aguacate</div>
+        <div class="paq-item"><span class="check">✓</span> Bolsa premium con hielo</div>
+      </div>
+      <button class="btn-paq" onclick="irAPedidoPaquete('Paquete Fiesta — $350 (4-5 personas + 2 miches)')">📲 Pedir directo</button>
+      <button class="btn-agregar-paq" onclick="agregarAlCarrito('Paquete Fiesta',350,'🦐','4-5 personas + 2 miches')">🛒 Agregar al carrito</button>
+    </div>
+
+    <div class="paq-card">
+      <div class="paq-header">
+        <span class="paq-emoji">🎊</span>
+        <p class="paq-name">Paquete Evento</p>
+        <p class="paq-personas">Para 10+ personas</p>
+      </div>
+      <p class="paq-price">$650 <span>/ paquete</span></p>
+      <div class="paq-includes">
+        <p>Incluye:</p>
+        <div class="paq-item"><span class="check">✓</span> 10 porciones de camarón variadas</div>
+        <div class="paq-item"><span class="check">✓</span> 2 preparos de miche 🍺🍺</div>
+        <div class="paq-item"><span class="check">✓</span> Todos los extras disponibles</div>
+        <div class="paq-item"><span class="check">✓</span> Presentación en charola</div>
+        <div class="paq-item"><span class="check">✓</span> Entrega coordinada</div>
+      </div>
+      <button class="btn-paq gold" onclick="irAPedidoPaquete('Paquete Evento — $650 (10+ personas)')">📲 Pedir directo</button>
+      <button class="btn-agregar-paq" onclick="agregarAlCarrito('Paquete Evento',650,'🎊','10+ personas')">🛒 Agregar al carrito</button>
+    </div>
+
+    <div class="paq-card" style="border-color:var(--rojo);background:linear-gradient(135deg,#fff,#fff5f5);">
+      <div class="paq-header">
+        <span class="paq-emoji">🌶️</span>
+        <p class="paq-name">Paquete Personalizado</p>
+        <p class="paq-personas">¡Tú decides todo!</p>
+      </div>
+      <p class="paq-price" style="color:var(--mar-oscuro);">A tu medida</p>
+      <div class="paq-includes">
+        <p>Tú eliges:</p>
+        <div class="paq-item"><span class="check">✓</span> Cantidad de porciones</div>
+        <div class="paq-item"><span class="check">✓</span> Estilo de aguachile y extras</div>
+        <div class="paq-item"><span class="check">✓</span> ¿Con 1 o 2 miches? 🍺</div>
+        <div class="paq-item"><span class="check">✓</span> Nivel de picante</div>
+        <div class="paq-item"><span class="check">✓</span> Fecha y horario de entrega</div>
+      </div>
+      <button class="btn-paq" style="background:var(--rojo);box-shadow:0 3px 0 #7a0010;" onclick="irAPedidoPaquete('Paquete Personalizado')">📲 Pedir directo</button>
+      <button class="btn-agregar-paq" style="background:var(--mar-oscuro);" onclick="agregarAlCarrito('Paquete Personalizado',0,'🌶️','A tu medida')">🛒 Agregar al carrito</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- OLA 3 -->
+<div class="ola" style="background:#FFF8E1;">
+  <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,20 C360,65 1080,5 1440,45 L1440,70 L0,70 Z" fill="#023E8A"/>
+  </svg>
+</div>
+
+<!-- POR QUÉ -->
+<section id="nosotros">
+  <div class="section-header">
+    <span class="section-tag">¿Por qué SAMARO?</span>
+    <h2 class="section-h2">Sabor de mar, hecho aquí 🏖️</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feat-icon">🌊</span>
+      <p class="feat-title">Ingredientes frescos</p>
+      <p class="feat-text">Mariscos frescos traídos directo para ti. Sin conservadores, sin congelados. Puro sabor natural.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">👩‍🍳</span>
+      <p class="feat-title">Receta artesanal</p>
+      <p class="feat-text">Cada porción es preparada al momento con cariño y recetas que tienen el sazón de casa.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🏍️</span>
+      <p class="feat-title">Entrega a domicilio</p>
+      <p class="feat-text">Te llevamos tu pedido en Querétaro en menos de 24 horas, fresco y listo para disfrutar.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">💬</span>
+      <p class="feat-title">Atención directa</p>
+      <p class="feat-text">Hablamos contigo por WhatsApp. Pedidos personalizados, porciones grandes para eventos, lo que necesites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PEDIDOS -->
+<section id="pedidos">
+  <div class="section-header">
+    <span class="section-tag" style="background:rgba(0,60,130,0.1);">Haz tu pedido</span>
+    <h2 class="section-h2" style="color:var(--mar-oscuro);">¿Se te antojó? 🦐</h2>
+  </div>
+  <div class="order-layout">
+    <div class="order-deco">
+      <span class="order-deco-emoji">🌊</span>
+      <h3>¡Pedidos con gusto!</h3>
+      <p>Llena el formulario y te abrimos WhatsApp con tu pedido listo para confirmar. ¡Rápido y fácil!</p>
+      <div>
+        <span class="contact-pill">📍 Querétaro, México</span>
+        <span class="contact-pill">📱 (442) 632-1413</span>
+        <span class="contact-pill">📸 @aguachilesamchis</span>
+      </div>
+    </div>
+    <div>
+      <form class="order-form" id="orderForm" onsubmit="handleOrder(event)">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" id="inp-nombre" placeholder="¿Cómo te llamamos?" required>
+        </div>
+        <div class="form-group">
+          <label>Tu WhatsApp</label>
+          <input type="tel" id="inp-telefono" placeholder="442 000 0000" required>
+        </div>
+        <div class="form-group">
+          <label>¿Qué quieres pedir?</label>
+          <select id="inp-producto" required>
+            <!--PRECIOS-->
+            <option value="">Elige el estilo 🦐</option>
+            <option>Camarón Negro — $65</option>
+            <option>Camarón Rojo — $65</option>
+            <option>Camarón Verde — $65</option>
+            <option>Camarón Amarillo — $70</option>
+            <option>── Paquetes ──</option>
+            <option>Paquete Playa (2 porciones + 1 miche) — $150</option>
+            <option>Paquete Fiesta (5 porciones + 2 miches) — $350</option>
+            <option>Paquete Evento (10 porciones + 2 miches) — $650</option>
+            <option>Paquete Personalizado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Porciones</label>
+          <input type="number" id="inp-porciones" min="1" placeholder="¿Cuántas?" required>
+        </div>
+        <div class="form-group">
+          <label>¿Dónde te lo llevamos?</label>
+          <textarea id="inp-direccion" placeholder="Calle, colonia, referencias…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <span>📲</span> Enviar pedido por WhatsApp
+        </button>
+      </form>
+      <div class="form-success" id="successMsg">
+        🎉 ¡Se abrió WhatsApp con tu pedido! Confirma el mensaje y en breve te atendemos. ¡Gracias por elegirnos! 🦐
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">🦐 Aguachiles SAMARO</span>
+  <p class="footer-copy">© 2026 Aguachiles SAMARO · Hecho con 💙 en Querétaro, México</p>
+</footer>
+
+<script>
+// ============================================================
+// NÚMERO DE WHATSAPP
+// ============================================================
+const WA_NUMERO = '524426321413';
+
+function abrirWA(mensaje) {
+  const url = 'https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(mensaje);
+  window.open(url, '_blank');
+}
+
+// ===== CARRITO =====
+let carrito = []; // [{id, nombre, precio, emoji, detalle, cant}]
+let pasoActual = 1;
+
+function agregarAlCarrito(nombre, precio, emoji, detalle) {
+  const existing = carrito.find(i => i.nombre === nombre && i.detalle === detalle);
+  if (existing) {
+    existing.cant++;
+  } else {
+    carrito.push({ id: Date.now(), nombre, precio, emoji, detalle, cant: 1 });
+  }
+  actualizarCarritoUI();
+  abrirCarrito();
+  // Feedback visual
+  const btns = document.querySelectorAll('.btn-agregar, .btn-agregar-paq, .btn-add-order');
+  btns.forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(nombre)) {
+      const orig = b.textContent;
+      b.textContent = '✓ ¡Agregado!';
+      b.style.background = '#25D366';
+      setTimeout(() => { b.textContent = orig; b.style.background = ''; }, 1200);
+    }
+  });
+}
+
+function quitarDelCarrito(id) {
+  carrito = carrito.filter(i => i.id !== id);
+  actualizarCarritoUI();
+  renderCartItems();
+}
+
+function cambiarCantCarrito(id, delta) {
+  const item = carrito.find(i => i.id === id);
+  if (!item) return;
+  item.cant = Math.max(1, item.cant + delta);
+  actualizarCarritoUI();
+  renderCartItems();
+}
+
+function actualizarCarritoUI() {
+  const total = carrito.reduce((s, i) => s + i.precio * i.cant, 0);
+  const count = carrito.reduce((s, i) => s + i.cant, 0);
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = count;
+  badge.classList.toggle('visible', count > 0);
+  document.getElementById('cart-total-val').textContent = '$' + total;
+  document.getElementById('cart-total-wrap').style.display = carrito.length ? 'block' : 'none';
+  const btn = document.getElementById('btn-paso-2');
+  if (btn) btn.disabled = carrito.length === 0;
+}
+
+function renderCartItems() {
+  const list = document.getElementById('cart-items-list');
+  if (carrito.length === 0) {
+    list.innerHTML =
+      '<div class="cart-empty">' +
+      '<span class="cart-empty-emoji">🛒</span>' +
+      '<p>Tu carrito está vacío.<br>¡Agrega algo delicioso!</p>' +
+      '</div>';
+    return;
+  }
+  list.innerHTML = carrito.map(item =>
+    '<div class="cart-item">' +
+    '<span class="cart-item-emoji">' + item.emoji + '</span>' +
+    '<div class="cart-item-info">' +
+    '<div class="cart-item-name">' + item.nombre + '</div>' +
+    '<div class="cart-item-detail">' + item.detalle + '</div>' +
+    '<div class="cart-item-qty">' +
+    '<button class="qty-btn" onclick="cambiarCantCarrito(' + item.id + ',-1)">−</button>' +
+    '<span class="qty-val">' + item.cant + '</span>' +
+    '<button class="qty-btn" onclick="cambiarCantCarrito(' + item.id + ',1)">+</button>' +
+    '</div>' +
+    '</div>' +
+    '<span class="cart-item-price">$' + (item.precio * item.cant) + '</span>' +
+    '<button class="cart-item-remove" onclick="quitarDelCarrito(' + item.id + ')" title="Quitar">✕</button>' +
+    '</div>'
+  ).join('');
+}
+
+function abrirCarrito() {
+  pasoActual = 1;
+  renderCartItems();
+  actualizarCarritoUI();
+  mostrarPaso(1);
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarCarrito() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function mostrarPaso(n) {
+  pasoActual = n;
+  [1,2,3].forEach(i => {
+    document.getElementById('cart-step-' + i).style.display = i === n ? 'block' : 'none';
+    const tab = document.getElementById('step-tab-' + i);
+    tab.classList.remove('active','done');
+    if (i === n) tab.classList.add('active');
+    else if (i < n) tab.classList.add('done');
+  });
+  const footer = document.getElementById('cart-footer');
+  if (n === 1) {
+    footer.innerHTML =
+      '<button class="btn-cart-next" id="btn-paso-2" onclick="irPaso2()" ' + (carrito.length === 0 ? 'disabled' : '') + '>Ver resumen y datos →</button>';
+  } else if (n === 2) {
+    footer.innerHTML =
+      '<button class="btn-cart-next" onclick="mostrarPaso(1)">← Volver al carrito</button>' +
+      '<button class="btn-cart-wa" onclick="enviarPedidoWA()">📲 Confirmar por WhatsApp</button>';
+  } else {
+    footer.innerHTML =
+      '<button class="btn-cart-next" onclick="cerrarCarrito()">Cerrar 🎉</button>';
+  }
+}
+
+function irPaso2() {
+  if (carrito.length === 0) return;
+  // Render resumen mini
+  const total = carrito.reduce((s, i) => s + i.precio * i.cant, 0);
+  const resumen = document.getElementById('cart-resumen-mini');
+  resumen.innerHTML =
+    '<div class="cart-resumen-title">📋 Tu pedido</div>' +
+    carrito.map(i =>
+      '<div class="cart-resumen-item">' + i.emoji + ' ' + i.nombre + ' x' + i.cant + ' — $' + (i.precio * i.cant) + '</div>'
+    ).join('') +
+    '<div class="cart-resumen-item" style="font-weight:800;color:var(--rojo);border:none;margin-top:0.3rem;">Total: $' + total + '</div>';
+  mostrarPaso(2);
+}
+
+function enviarPedidoWA() {
+  const nombre   = document.getElementById('cart-nombre').value.trim();
+  const telefono = document.getElementById('cart-telefono').value.trim();
+  const direccion= document.getElementById('cart-direccion').value.trim();
+  const hora     = document.getElementById('cart-hora').value.trim();
+  const nota     = document.getElementById('cart-nota').value.trim();
+
+  if (!nombre) { alert('Por favor ingresa tu nombre 😊'); document.getElementById('cart-nombre').focus(); return; }
+  if (!telefono) { alert('Por favor ingresa tu WhatsApp 📱'); document.getElementById('cart-telefono').focus(); return; }
+  if (!direccion) { alert('Por favor ingresa tu dirección 📍'); document.getElementById('cart-direccion').focus(); return; }
+
+  const total = carrito.reduce((s, i) => s + i.precio * i.cant, 0);
+  const items = carrito.map(i => '   • ' + i.emoji + ' ' + i.nombre + ' x' + i.cant + ' = $' + (i.precio * i.cant)).join('\n');
+
+  let mensaje =
+    '🦐 *Nuevo Pedido — Aguachiles Amchis*\n\n' +
+    '👤 *Nombre:* ' + nombre + '\n' +
+    '📱 *WhatsApp:* ' + telefono + '\n' +
+    '📍 *Dirección:* ' + direccion + '\n';
+  if (hora)    mensaje += '🕐 *Entrega:* ' + hora + '\n';
+  if (nota)    mensaje += '📝 *Nota:* ' + nota + '\n';
+  mensaje +=
+    '\n🛒 *Pedido:*\n' + items + '\n\n' +
+    '💰 *Total estimado: $' + total + '*\n\n' +
+    '¡Hola! Quisiera confirmar este pedido 😊';
+
+  abrirWA(mensaje);
+  carrito = [];
+  actualizarCarritoUI();
+  mostrarPaso(3);
+}
+
+// ===== ARMADOR =====
+let state = { marisco:'Camarón', emoji:'🦐', precio:65, tipo:'', tipoClass:'', picante:'Sin picante', extras:[], cant:1 };
+
+const picanteData = [
+  { label:'Sin picante — tranquilo', emoji:'😊', color:'#2DC653', chiles:0 },
+  { label:'Poco picante 🌶', emoji:'😌', color:'#8BC34A', chiles:1 },
+  { label:'Picante medio 🌶🌶', emoji:'😅', color:'#FFB300', chiles:2 },
+  { label:'Bien picante 🔥', emoji:'🥵', color:'#E63946', chiles:3 },
+  { label:'¡MÁXIMO! ☠️ — Solo pa valientes', emoji:'💀', color:'#7B0000', chiles:4 },
+];
+
+function updatePicante(val) {
+  const d = picanteData[val];
+  state.picante = d.label;
+  document.getElementById('picante-emoji').textContent = d.emoji;
+  document.getElementById('picante-label').textContent = d.label;
+  document.getElementById('picante-label').style.color = d.color;
+  const pct = (val / 4) * 100;
+  document.getElementById('picante-fill').style.width = pct + '%';
+  const dots = document.querySelectorAll('.chile-dot');
+  dots.forEach((dot, i) => { dot.classList.toggle('on', i < d.chiles); });
+  document.querySelector('.picante-meter').style.borderColor = d.color + '55';
+  updateBowl();
+}
+
+function selTipo(btn, nombre, _ic, cls) {
+  document.querySelectorAll('#tipo-opts .opt-btn').forEach(b => {
+    b.classList.remove('selected','selected-verde','selected-negro','selected-rojo');
+  });
+  btn.classList.add('selected-' + cls);
+  state.tipo = nombre; state.tipoClass = 't-' + cls;
+  state.precio = nombre === 'Amarillo' ? 70 : 65;
+  updateBowl();
+}
+
+function toggleExtra(btn, nombre) {
+  const idx = state.extras.indexOf(nombre);
+  if (idx === -1) { state.extras.push(nombre); btn.classList.add('si'); }
+  else { state.extras.splice(idx,1); btn.classList.remove('si'); }
+  updateBowl();
+}
+
+function cambiarCant(d) {
+  state.cant = Math.max(1, state.cant + d);
+  document.getElementById('cant-num').textContent = state.cant;
+  updateBowl();
+}
+
+function updateBowl() {
+  const bowl = document.getElementById('bowl-card');
+  document.getElementById('bowl-emoji').textContent = state.emoji;
+  const nombre = 'Camarón' + (state.tipo ? ' ' + state.tipo : '');
+  document.getElementById('bowl-name').textContent = nombre;
+  const tagsEl = document.getElementById('bowl-tags');
+  tagsEl.innerHTML = '';
+  if (!state.tipo && !state.extras.length) {
+    tagsEl.innerHTML = '<span class="bowl-empty">Elige tu estilo ☝️</span>';
+  } else {
+    if (state.tipo) { const t = document.createElement('span'); t.className='bowl-tag '+state.tipoClass; t.textContent=state.tipo; tagsEl.appendChild(t); }
+    if (state.picante && state.picante !== 'Sin picante') { const t = document.createElement('span'); t.className='bowl-tag t-rojo'; t.textContent=state.picante.split('—')[0].trim(); tagsEl.appendChild(t); }
+    state.extras.forEach(e => { const t = document.createElement('span'); t.className='bowl-tag'; t.textContent=e; tagsEl.appendChild(t); });
+  }
+  const total = state.precio * state.cant;
+  document.getElementById('bowl-price').textContent = total > 0 ? '$' + total + ' (' + state.cant + ' porción' + (state.cant>1?'es':'') + ')' : '$—';
+  const gradients = { negro:'linear-gradient(135deg,#e8e8e830,#d0d0d020)', rojo:'linear-gradient(135deg,#FDECEA,#F8BBD0)', verde:'linear-gradient(135deg,#E8F5E9,#C8E6C9)', mar:'linear-gradient(135deg,#FFF9C4,#FFF176)' };
+  bowl.style.background = gradients[state.tipoClass.replace('t-','')] || 'linear-gradient(135deg,#E0F7FA,#B2EBF2)';
+}
+
+// Agregar armador al carrito
+function irAPedido() {
+  if (!state.tipo) { alert('¡Elige el tipo de aguachile primero! 🦐'); return; }
+  const extras = state.extras.length ? ' · ' + state.extras.join(', ') : '';
+  const detalle = state.tipo + ' · ' + state.picante.split('—')[0].trim() + extras;
+  for (let i = 0; i < state.cant; i++) {
+    agregarAlCarrito('Camarón ' + state.tipo, state.precio, '🦐', detalle);
+  }
+}
+
+// Pedir paquete directo (sin carrito)
+function irAPedidoPaquete(nombre) {
+  const mensaje =
+    '🎉 *Pedido de Paquete - Aguachiles Amchis*\n\n' +
+    '📦 *Paquete:* ' + nombre + '\n\n' +
+    '¡Hola! Quisiera pedir este paquete, ¿me pueden dar más info? 😊';
+  abrirWA(mensaje);
+}
+
+// ===== FORMULARIO RÁPIDO → WHATSAPP =====
+function handleOrder(e) {
+  e.preventDefault();
+  const nombre    = document.getElementById('inp-nombre').value.trim();
+  const telefono  = document.getElementById('inp-telefono').value.trim();
+  const producto  = document.getElementById('inp-producto').value;
+  const porciones = document.getElementById('inp-porciones').value;
+  const direccion = document.getElementById('inp-direccion').value.trim();
+
+  const mensaje =
+    '🦐 *Nuevo Pedido - Aguachiles Amchis*\n\n' +
+    '👤 *Nombre:* ' + nombre + '\n' +
+    '📱 *Teléfono:* ' + telefono + '\n' +
+    '🍽️ *Pedido:* ' + producto + '\n' +
+    '📦 *Porciones:* ' + porciones + '\n' +
+    '📍 *Dirección:* ' + (direccion || 'Por confirmar') + '\n\n' +
+    '¡Hola! Quisiera confirmar este pedido 😊';
+
+  abrirWA(mensaje);
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+// Init
+renderCartItems();
+actualizarCarritoUI();
+</script>
+</body>
+</html>
